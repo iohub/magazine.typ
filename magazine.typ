@@ -178,13 +178,13 @@
 #set page(header: getHeader(), numbering: "1 / 1")
 #set align(center)
 = 文章一
+#set align(right)
+Bob & Bert 架构设计部
 #set align(left)
-== 子标题1
-#lorem(120)
-\ \ \
+\ 
 == 子标题2
 #columns(2, [#lorem(200)
-  内容填充
+  内容填充 
   #theorem[
     [1] Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint
 arXiv:1607.06450, 2016. \
@@ -201,8 +201,11 @@ machine translation architectures. CoRR, abs/1703.03906, 2017.
 
 
 // Shared Page
+
 #set align(center)
-#text(font: "STZHONGS.TTF", weight: 800, [信息速递], size: 28pt, fill: rgb("#014482"))
+// #text(font: "STZHONGS.TTF", weight: 800, [信息速递], size: 28pt, fill: rgb("#014482"))
+= 信息速递
+\
 #set align(left)
 #columns(2, [
   #corollary[
@@ -223,8 +226,11 @@ arXiv:1607.06450, 2016.
 
 
 // Gossip Page
+
 #set align(center)
-#text(font: "STZHONGS.TTF", weight: 800, [行业八卦], size: 28pt, fill: rgb("#014482"))
+= 行业八卦
+\
+// #text(font: "STZHONGS.TTF", weight: 800, [行业八卦], size: 28pt, fill: rgb("#014482"))
 #set align(left)
 #columns(2, [
   #gossip[
