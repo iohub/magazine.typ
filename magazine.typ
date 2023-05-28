@@ -6,6 +6,22 @@
   ]
 }
 
+#let buildGenHeader(head) = {
+  [
+    #stack(
+        dir: ttb,
+        rect(fill: rgb("#17064f"), radius: (top-right: 5pt), stroke: rgb("#17064f"))[
+          #strong(
+            text(white)[
+              #head
+            ]
+          )
+        ]
+    )
+     #h(1fr) 
+  ]
+}
+
 #let buildSecondaryHeader(mainHeadingContent, secondaryHeadingContent) = {
   [
     #smallcaps(mainHeadingContent)  #h(1fr)  #emph(secondaryHeadingContent) 
@@ -28,6 +44,8 @@
 
 #let getHeader() = {
   locate(loc => {
+    // return buildGenHeader([技术月刊])
+    return buildSecondaryHeader([技术月刊], [5月刊])
     // Find if there is a level 1 heading on the current page
     let nextMainHeading = query(selector(heading).after(loc), loc).find(headIt => {
      headIt.location().page() == loc.page() and headIt.level == 1
@@ -46,6 +64,7 @@
     let lastSecondaryHeading = if (previousSecondaryHeadingArray.len() != 0) {previousSecondaryHeadingArray.last()} else {none}
     // Find if the last secondary heading exists and if it's after the last main heading
     if (lastSecondaryHeading != none and isAfter(lastSecondaryHeading, lastMainHeading)) {
+      // return
       return buildSecondaryHeader(lastMainHeading.body, lastSecondaryHeading.body)
     }
     return buildMainHeader(lastMainHeading.body)
@@ -144,7 +163,7 @@
 
 
 // main body
-#set page(numbering: "1 / 1")
+#set page(header: getHeader(), numbering: "1 / 1")
 #set align(center)
 = 文章一
 #set align(left)
@@ -173,8 +192,6 @@ machine translation architectures. CoRR, abs/1703.03906, 2017.
 #set align(center)
 #text(font: "STZHONGS.TTF", weight: 800, [信息速递], size: 28pt, fill: rgb("#014482"))
 #set align(left)
-\ \ \
-
 #columns(2, [
   #corollary[
     [1] Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint
@@ -197,8 +214,6 @@ arXiv:1607.06450, 2016.
 #set align(center)
 #text(font: "STZHONGS.TTF", weight: 800, [行业八卦], size: 28pt, fill: rgb("#014482"))
 #set align(left)
-\ \ \
-
 #columns(2, [
   #gossip[
     #link("https://baidu.com")[Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint
