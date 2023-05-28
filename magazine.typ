@@ -18,13 +18,25 @@
           )
         ]
     )
-     #h(1fr) 
   ]
 }
 
 #let buildSecondaryHeader(mainHeadingContent, secondaryHeadingContent) = {
   [
-    #smallcaps(mainHeadingContent)  #h(1fr)  #emph(secondaryHeadingContent) 
+    #align(left,
+    stack(
+        dir: ttb,
+        rect(fill: rgb("#17064f"), radius: (top-right: 5pt), stroke: rgb("#17064f"))[
+          #strong(
+            text(white, 16pt)[
+              #mainHeadingContent
+            ]
+          )
+          #text(white, 13pt)[
+              #secondaryHeadingContent
+          ]
+        ]
+    ))
     #line(length: 100%)
   ]
 }
@@ -45,7 +57,7 @@
 #let getHeader() = {
   locate(loc => {
     // return buildGenHeader([技术月刊])
-    return buildSecondaryHeader([技术月刊], [5月刊])
+    return buildSecondaryHeader([技术洞察月刊], [第1期 2023年5月])
     // Find if there is a level 1 heading on the current page
     let nextMainHeading = query(selector(heading).after(loc), loc).find(headIt => {
      headIt.location().page() == loc.page() and headIt.level == 1
