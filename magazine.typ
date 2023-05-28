@@ -53,7 +53,7 @@
 }
 
 
-#let base_env(type: "Theorem", name: none, numbered: true, fg: black, bg: white,
+#let base_env(type: "Theorem", name: none, numbered: true, fg: black, bg: white, title: true,
           body) = locate(
     location => {
       let lvl = counter(heading).at(location)
@@ -86,52 +86,130 @@
     }
 )
 
+
+#let block_env(type: "Theorem", name: none, numbered: true, fg: black, bg: white, title: true,
+          body) = locate(
+    location => {
+      let lvl = counter(heading).at(location)
+      let i = counter(type).at(location).first()
+      let top = if lvl.len() > 0 { lvl.first() } else { 0 }
+      show: block.with(spacing: 11.5pt)
+      stack(
+        dir: ttb,
+        rect(width: 100%,
+          fill: bg,
+          radius: ( right: 5pt ),
+          stroke: (
+            left: fg,
+            right: bg + 0pt,
+            top: bg + 0pt,
+            bottom: bg + 0pt,
+          )
+        )[
+          #emph(body)
+        ]
+      )
+    }
+)
+
 #let theorem = base_env.with(
   type: "参考文献",
   fg: blue,
   bg: rgb("#e8e8f8"),
 )
 
-#set align(center)
-// #text(0.85em, smallcaps[Abstract])
+#let corollary = block_env.with(
+  type: "信息速递",
+  fg: rgb("#093bba"),
+  bg: rgb("#e8e8f8"),
+)
+
+#let gossip = block_env.with(
+  type: "行业八卦",
+  fg: rgb("#6922ab"),
+  bg: rgb("#e8e8f8"),
+)
+
+// Title
 #set page(background: image("bg2.jpg"), margin: (x: 0pt, bottom: 0pt))
-
-
+#set align(center)
+#text(font: "STZHONGS.TTF", weight: 800, [技术月刊], size: 68pt, fill: rgb("#014482"))
 #pagebreak()
 
+// Table of contents.
 #set align(center)
 #set page(background: none, margin: auto)
-// Table of contents.
-#outline(depth: 3, indent: true)
+#outline(title: [目录], depth: 1, indent: true)
 #pagebreak()
 
-#set page(numbering: "1 / 1")
 
+// main body
+#set page(numbering: "1 / 1")
 #set align(center)
 = 文章一
 #set align(left)
 == 子标题1
-#lorem(200)
+#lorem(120)
 \ \ \
 == 子标题2
 #columns(2, [#lorem(200)
   内容填充
   #theorem[
-    #lorem(20)
+    [1] Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint
+arXiv:1607.06450, 2016. \
+    [2] Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio. Neural machine translation by jointly
+learning to align and translate. CoRR, abs/1409.0473, 2014. \
+    [3] Denny Britz, Anna Goldie, Minh-Thang Luong, and Quoc V. Le. Massive exploration of neural
+machine translation architectures. CoRR, abs/1703.03906, 2017.
+
+
   ]]
 )
 
 #pagebreak(weak: true)
 
 
-
-
+// Shared Page
 #set align(center)
-= 文章2
+#text(font: "STZHONGS.TTF", weight: 800, [信息速递], size: 28pt, fill: rgb("#014482"))
 #set align(left)
-== 子标题3
-#lorem(80)
 \ \ \
 
-#columns(2, [#lorem(500)])
+#columns(2, [
+  #corollary[
+    [1] Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint
+arXiv:1607.06450, 2016. 
+  ]
+  #corollary[
+    [1] Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint
+arXiv:1607.06450, 2016. 
+  ]
+  #corollary[
+    [1] Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint
+arXiv:1607.06450, 2016. 
+  ]
+])
+#pagebreak(weak: true)
+
+
+
+// Gossip Page
+#set align(center)
+#text(font: "STZHONGS.TTF", weight: 800, [行业八卦], size: 28pt, fill: rgb("#014482"))
+#set align(left)
+\ \ \
+
+#columns(2, [
+  #gossip[
+    #link("https://baidu.com")[Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint
+arXiv:1607.06450, 2016.]
+  ]
+
+  #gossip[
+    #link("https://so.com")[Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint
+arXiv:1607.06450, 2016.]
+  ]
+
+
+])
 #pagebreak(weak: true)
