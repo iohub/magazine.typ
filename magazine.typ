@@ -6,37 +6,25 @@
   ]
 }
 
-#let buildGenHeader(head) = {
-  [
-    #stack(
-        dir: ttb,
-        rect(fill: rgb("#17064f"), radius: (top-right: 5pt), stroke: rgb("#17064f"))[
-          #strong(
-            text(white)[
-              #head
-            ]
-          )
-        ]
-    )
-  ]
-}
-
 #let buildSecondaryHeader(mainHeadingContent, secondaryHeadingContent) = {
   [
-    #align(left,
-    stack(
-        dir: ttb,
-        rect(fill: rgb("#17064f"), radius: (top-right: 5pt), stroke: rgb("#17064f"))[
-          #strong(
-            text(white, 16pt)[
-              #mainHeadingContent
+    #grid(
+      columns: (1fr, 1fr),
+      align(left,
+        stack(
+            dir: ttb,
+            rect(fill: rgb("#17064f"), radius: (top-right: 5pt), stroke: rgb("#17064f"))[
+              #strong(
+                text(white, 16pt)[
+                  #mainHeadingContent
+                ]
+              )
             ]
-          )
-          #text(white, 13pt)[
-              #secondaryHeadingContent
-          ]
-        ]
-    ))
+      )),
+      align(right)[
+        #secondaryHeadingContent
+      ]
+    )
     #line(length: 100%)
   ]
 }
@@ -56,7 +44,6 @@
 
 #let getHeader() = {
   locate(loc => {
-    // return buildGenHeader([技术月刊])
     return buildSecondaryHeader([技术洞察月刊], [第1期 2023年5月])
     // Find if there is a level 1 heading on the current page
     let nextMainHeading = query(selector(heading).after(loc), loc).find(headIt => {
@@ -164,7 +151,8 @@
 // Title
 #set page(background: image("bg2.jpg"), margin: (x: 0pt, bottom: 0pt))
 #set align(center)
-#text(font: "STZHONGS.TTF", weight: 800, [技术月刊], size: 68pt, fill: rgb("#014482"))
+#text(font: "STZHONGS.TTF", weight: 800, [技术洞察月刊], size: 68pt, fill: rgb("#014482")) \ \ \
+#text(font: "STZHONGS.TTF", weight: 600, [第1期 2023年5月], size: 26pt, fill: rgb("#014482"))
 #pagebreak()
 
 // Table of contents.
@@ -183,7 +171,7 @@ Bob & Bert 架构设计部
 #set align(left)
 \ 
 == 子标题2
-#columns(2, [#lorem(200)
+#columns(2, [#lorem(440)
   内容填充 
   #theorem[
     [1] Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint
